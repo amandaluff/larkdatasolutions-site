@@ -67,7 +67,18 @@ def amp(t):
 MENU_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 
 
+def check_meta(path, title, desc, robots):
+    # Search results cut titles off after ~60 characters and descriptions after ~160.
+    if robots.startswith("noindex"):
+        return
+    if len(title) > 60:
+        print(f"WARNING {path}: title is {len(title)} characters (keep to 60 or fewer): {title}")
+    if not 120 <= len(desc) <= 160:
+        print(f"WARNING {path}: description is {len(desc)} characters (keep to 120-160): {desc}")
+
+
 def page(path, title, desc, body, schema=None, robots="index, follow"):
+    check_meta(path, title, desc, robots)
     url = SITE + path
     nav = "\n".join(
         f'        <a href="{h}"{" aria-current=\"page\"" if h == path else ""}>{n}</a>' for h, n in NAV)
@@ -117,7 +128,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
   <header class="site-header">
     <div class="container">
       <a class="brand" href="/" aria-label="Lark Data Solutions home">
-        <img class="brand-mark" src="/assets/img/mark.svg" alt="" width="30" height="30">
+        <img class="brand-mark" src="/assets/img/mark.svg" alt="Lark Data Solutions logo: three colored dots on a dark square" aria-hidden="true" width="30" height="30">
         <span>Lark<small>Data Solutions</small></span>
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">{MENU_ICON}</button>
@@ -194,6 +205,11 @@ def write(rel, html):
     prefix = "../" * rel.count("/")
     html = re.sub(r'(href|src)="/(?!/)([^"]*)"',
                   lambda m: f'{m.group(1)}="{prefix + m.group(2) or "./"}"', html)
+    # Bing flags images with missing or empty alt text, so every image needs one.
+    # Decorative images get alt text plus aria-hidden="true" to keep screen readers quiet.
+    for img in re.findall(r"<img\b[^>]*>", html):
+        if not re.search(r'alt="[^"]+"', img):
+            print(f"WARNING {rel}: image has no alt text: {img}")
     p = os.path.join(OUT, rel)
     os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, "w", encoding="utf-8").write(html)
@@ -230,7 +246,7 @@ home = f'''    <section class="hero">
           </div>
         </div>
         <div class="hero-art">
-          <img src="/assets/img/data-dots.webp" width="1000" height="501" alt="" fetchpriority="high">
+          <img src="/assets/img/data-dots.webp" width="1000" height="501" alt="Decorative graphic of orange, yellow, green, teal, and gray dots arranged in rising columns, like a scatter plot" aria-hidden="true" fetchpriority="high">
         </div>
       </div>
     </section>
@@ -250,8 +266,8 @@ home = f'''    <section class="hero">
 {cta()}'''
 
 write("index.html", page("/",
-    "Lark Data Solutions | Statistical Consulting, Research Design & Machine Learning",
-    "Lark Data Solutions is a data science and research consulting firm in Milwaukee, WI. We help organizations design studies, analyze real-world data, and build machine learning models.",
+    "Lark Data Solutions | Data Science Consulting, Milwaukee",
+    "Data science and research consulting firm in Milwaukee, WI. We design studies, analyze real-world data, and build machine learning models.",
     home, PEOPLE))
 
 # ---------- Services ----------
@@ -316,8 +332,8 @@ services = f'''    <section class="page-hero">
 {cta()}'''
 
 write("our-services/index.html", page("/our-services/",
-    "Services: Statistical Methods, Research Design & Machine Learning | Lark Data Solutions",
-    "Study design, causal inference and program evaluation, real-world data analysis, regulatory compliance, predictive modeling, natural language processing, and speech recognition.",
+    "Statistics & Machine Learning Services | Lark Data Solutions",
+    "Study design, causal inference, real-world data analysis, regulatory compliance, predictive modeling, natural language processing, and speech recognition.",
     services, services_schema))
 
 # ---------- /about-us/ (merged into the home page) -> /#partners ----------
@@ -417,15 +433,15 @@ contact = f'''    <section class="page-hero">
     </script>'''
 
 write("contact-us/index.html", page("/contact-us/",
-    "Contact Us | Lark Data Solutions",
+    "Contact Us for a Free Consultation | Lark Data Solutions",
     "Contact Lark Data Solutions to set up a free consultation about statistical methods, research design, or machine learning.",
     contact, [{"@type": "ContactPage", "url": SITE + "/contact-us/", "about": {"@id": SITE + "/#organization"}}]))
 
 # ---------- Policies ----------
 legal = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "policies_body.html"), encoding="utf-8").read()
 write("policies/index.html", page("/policies/",
-    "Terms of Service, Privacy Policy & Disclaimers | Lark Data Solutions",
-    "Terms of service, privacy policy, and disclaimers for larkdatasolutions.com, operated by Lark Services LLC.",
+    "Terms, Privacy & Disclaimers | Lark Data Solutions",
+    "Terms of service, privacy policy, and disclaimers for larkdatasolutions.com, the website of Lark Data Solutions, operated by Lark Services LLC.",
     legal))
 
 # ---------- /home (old Google Sites URL) -> / ----------
