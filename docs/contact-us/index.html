@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact Us | Lark Data Solutions</title>
-  <meta name="description" content="Get in touch with Lark Data Solutions to schedule a free consultation about data strategy, machine learning and AI, statistical analysis, or research protocol design.">
+  <meta name="description" content="Contact Lark Data Solutions to set up a free consultation about statistical methods, research design, or machine learning.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.larkdatasolutions.com/contact-us/">
   <meta name="theme-color" content="#0f1b2d">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Lark Data Solutions">
   <meta property="og:title" content="Contact Us | Lark Data Solutions">
-  <meta property="og:description" content="Get in touch with Lark Data Solutions to schedule a free consultation about data strategy, machine learning and AI, statistical analysis, or research protocol design.">
+  <meta property="og:description" content="Contact Lark Data Solutions to set up a free consultation about statistical methods, research design, or machine learning.">
   <meta property="og:url" content="https://www.larkdatasolutions.com/contact-us/">
   <meta property="og:image" content="https://www.larkdatasolutions.com/assets/img/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css?v=cddcdf13">
 
   <script type="application/ld+json">
 {
@@ -52,7 +52,7 @@
       "email": "contact@larkdatasolutions.com",
       "logo": "https://www.larkdatasolutions.com/apple-touch-icon.png",
       "image": "https://www.larkdatasolutions.com/assets/img/og-image.png",
-      "description": "Data strategy, machine learning and AI, statistical analysis, and research protocol consulting based in Milwaukee, Wisconsin.",
+      "description": "Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Milwaukee",
@@ -61,25 +61,24 @@
       },
       "areaServed": "Worldwide",
       "knowsAbout": [
-        "Data strategy",
-        "Analytics consulting",
+        "Statistical methods",
+        "Research design",
+        "Causal inference",
+        "Program evaluation",
+        "Real-world data",
+        "Clinical trials",
+        "Research protocols",
         "Machine learning",
-        "Artificial intelligence",
-        "Predictive modeling",
-        "Natural language processing",
-        "Statistical analysis",
-        "Real-world data analysis",
-        "Evidence generation",
-        "Research study design",
-        "Research protocol development",
-        "Research compliance"
+        "Deep learning",
+        "Speech recognition",
+        "Predictive modeling"
       ],
       "founder": [
         {
-          "@id": "https://www.larkdatasolutions.com/about-us/#duncan-clark"
+          "@id": "https://www.larkdatasolutions.com/#duncan-clark"
         },
         {
-          "@id": "https://www.larkdatasolutions.com/about-us/#amanda-luff"
+          "@id": "https://www.larkdatasolutions.com/#amanda-luff"
         }
       ]
     },
@@ -107,7 +106,6 @@
       <nav class="nav" id="site-nav" aria-label="Main">
         <a href="../">Home</a>
         <a href="../our-services/">Services</a>
-        <a href="../about-us/">About</a>
         <a class="btn" href="../contact-us/" aria-current="page">Contact Us</a>
       </nav>
     </div>
@@ -117,40 +115,95 @@
     <section class="page-hero">
       <div class="container">
         <span class="eyebrow">Contact Us</span>
-        <h1>Let's Connect!</h1>
-        <p class="lead">We encourage prospective clients to use our contact form, as it helps us understand your needs efficiently. If you prefer, you can email us directly.</p>
+        <h1>Contact us</h1>
+        <p class="lead">Tell us about your project and we'll reply to set up a free consultation. You can also email us directly.</p>
       </div>
     </section>
 
     <section style="padding-top:16px">
       <div class="container contact-grid">
         <div class="card">
-          <div class="dot c-teal" aria-hidden="true"></div>
-          <h2>Contact form</h2>
-          <p>Share a few details about your organization and project goals, and we'll follow up to schedule a free consultation.</p>
-          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScG4-OfHltn9WoBjefh_RZRsHVTqhr_40jwCqcX0C2IqBriFQ/viewform" rel="noopener" target="_blank">Open the Contact Form</a>
+          <h2>Send us a message</h2>
+          <form class="contact-form" action="https://formspree.io/f/mbgdzqze" method="POST">
+            <input type="hidden" name="_subject" value="New inquiry from larkdatasolutions.com">
+            <div class="field-row">
+              <label>Name <span class="req" aria-hidden="true">*</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>Email <span class="req" aria-hidden="true">*</span>
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Organization
+                <input type="text" name="organization" autocomplete="organization">
+              </label>
+              <label>Role or title
+                <input type="text" name="role" autocomplete="organization-title">
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Phone <span class="opt">(optional)</span>
+                <input type="tel" name="phone" autocomplete="tel">
+              </label>
+              <label>Area of interest
+                <select name="area">
+                  <option value="">Select one</option>
+                  <option>Statistical Methods &amp; Research Design</option>
+                  <option>Applied Machine Learning &amp; AI</option>
+                  <option>Both</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
+            </div>
+            <label>About your project <span class="req" aria-hidden="true">*</span>
+              <textarea name="message" rows="6" required></textarea>
+            </label>
+            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit">Send message</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
         <div class="card">
-          <div class="dot c-orange" aria-hidden="true"></div>
           <h2>Email</h2>
-          <p>Prefer email? Reach us directly and we'll get back to you.</p>
+          <p>Write to us directly.</p>
           <a class="btn btn-ghost" href="mailto:contact@larkdatasolutions.com">contact@larkdatasolutions.com</a>
         </div>
       </div>
     </section>
+
+    <script>
+      (function () {
+        var f = document.querySelector('.contact-form'), s = f.querySelector('.form-status'), b = f.querySelector('button');
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          b.disabled = true; s.className = 'form-status'; s.textContent = 'Sending...';
+          fetch(f.action, { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+            .then(function (r) {
+              if (!r.ok) throw new Error();
+              f.reset(); s.className = 'form-status ok';
+              s.textContent = 'Thanks. We received your message and will reply by email.';
+            })
+            .catch(function () {
+              s.className = 'form-status err';
+              s.textContent = 'Your message could not be sent. Please email us at contact@larkdatasolutions.com.';
+            })
+            .finally(function () { b.disabled = false; });
+        });
+      })();
+    </script>
   </main>
 
   <footer class="site-footer">
     <div class="container">
       <div>
         <h2>Lark Data Solutions</h2>
-        <p>Data strategy, machine learning, and research methodology consulting. Based in Milwaukee, Wisconsin, working with organizations everywhere.</p>
+        <p>Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.</p>
       </div>
       <div>
         <h2>Explore</h2>
         <ul>
           <li><a href="../our-services/">Our Services</a></li>
-          <li><a href="../about-us/">About Us</a></li>
           <li><a href="../contact-us/">Contact Us</a></li>
         </ul>
       </div>

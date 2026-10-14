@@ -3,10 +3,14 @@ import json, sys, os, re
 OUT = sys.argv[1]
 SITE = "https://www.larkdatasolutions.com"
 EMAIL = "contact@larkdatasolutions.com"
-FORM = "https://docs.google.com/forms/d/e/1FAIpQLScG4-OfHltn9WoBjefh_RZRsHVTqhr_40jwCqcX0C2IqBriFQ/viewform"
+FORM = "https://formspree.io/f/mbgdzqze"
 YEAR = "2026"
 
-NAV = [("/", "Home"), ("/our-services/", "Services"), ("/about-us/", "About")]
+import hashlib
+# Changes whenever style.css changes, so browsers fetch the new version after an update.
+CSS_V = hashlib.md5(open(os.path.join(OUT, "assets", "css", "style.css"), "rb").read()).hexdigest()[:8]
+
+NAV = [("/", "Home"), ("/our-services/", "Services")]
 
 ORG = {
     "@type": "ProfessionalService",
@@ -17,54 +21,48 @@ ORG = {
     "email": EMAIL,
     "logo": SITE + "/apple-touch-icon.png",
     "image": SITE + "/assets/img/og-image.png",
-    "description": "Data strategy, machine learning and AI, statistical analysis, and research protocol consulting based in Milwaukee, Wisconsin.",
+    "description": "Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.",
     "address": {"@type": "PostalAddress", "addressLocality": "Milwaukee", "addressRegion": "WI", "addressCountry": "US"},
     "areaServed": "Worldwide",
-    "knowsAbout": ["Data strategy", "Analytics consulting", "Machine learning", "Artificial intelligence",
-                   "Predictive modeling", "Natural language processing", "Statistical analysis",
-                   "Real-world data analysis", "Evidence generation", "Research study design",
-                   "Research protocol development", "Research compliance"],
-    "founder": [{"@id": SITE + "/about-us/#duncan-clark"}, {"@id": SITE + "/about-us/#amanda-luff"}],
+    "knowsAbout": ["Statistical methods", "Research design", "Causal inference", "Program evaluation", "Real-world data",
+                   "Clinical trials", "Research protocols", "Machine learning", "Deep learning",
+                   "Speech recognition", "Predictive modeling"],
+    "founder": [{"@id": SITE + "/#duncan-clark"}, {"@id": SITE + "/#amanda-luff"}],
 }
 PEOPLE = [
-    {"@type": "Person", "@id": SITE + "/about-us/#duncan-clark", "name": "Duncan Clark", "honorificSuffix": "PhD",
-     "jobTitle": "Partner, Machine Learning & Intelligent Systems", "image": SITE + "/assets/img/duncan-clark.webp",
-     "worksFor": {"@id": SITE + "/#organization"}, "sameAs": ["https://www.linkedin.com/in/duncan-clark-1b3548288/"]},
-    {"@type": "Person", "@id": SITE + "/about-us/#amanda-luff", "name": "Amanda Luff", "honorificSuffix": "PhD",
-     "jobTitle": "Partner, Research Methodology & Analytic Strategy", "image": SITE + "/assets/img/amanda-luff.webp",
-     "worksFor": {"@id": SITE + "/#organization"}, "sameAs": ["https://www.linkedin.com/in/amanda-luff/"]},
+    {"@type": "Person", "@id": SITE + "/#duncan-clark", "name": "Duncan Clark", "honorificSuffix": "PhD",
+     "jobTitle": "Partner, Applied Machine Learning & AI", "image": SITE + "/assets/img/duncan-clark.webp",
+     "alumniOf": {"@type": "CollegeOrUniversity", "name": "The Ohio State University"}, "knowsAbout": ["Machine learning", "Speech recognition", "Algebraic topology"],
+     "worksFor": {"@id": SITE + "/#organization"}},
+    {"@type": "Person", "@id": SITE + "/#amanda-luff", "name": "Amanda Luff", "honorificSuffix": "PhD",
+     "jobTitle": "Partner, Statistical Methods & Research Design", "image": SITE + "/assets/img/amanda-luff.webp",
+     "alumniOf": {"@type": "CollegeOrUniversity", "name": "The Ohio State University"}, "knowsAbout": ["Statistical methods", "Research design", "Causal inference", "Epidemiology", "Clinical research"],
+     "worksFor": {"@id": SITE + "/#organization"}},
 ]
 
-SERVICES = [
-    ("data-strategy", "Data Strategy & Analytics Consulting", "c-teal",
-     "We help you chart a clear course to use your data for sustained impact.",
-     "We help you understand your data's full potential and create a clear plan to achieve your goals. Whether you're just starting your data journey or looking to get more from your existing information, we guide you.",
-     [("Data Roadmaps", "Mapping out how to use your data effectively to reach your business or organizational objectives."),
-      ("Analytics Capability Assessment", "Evaluating your current data capabilities and identifying opportunities for improvement."),
-      ("Data-Driven Decision Frameworks", "Designing clear ways to use data to make better, faster decisions."),
-      ("AI & Technology Feasibility", "Exploring if and how advanced technologies like AI can solve your specific challenges.")]),
-    ("machine-learning-ai", "Machine Learning & AI Solutions", "c-orange",
-     "We build intelligent systems that predict, automate, and drive innovation.",
-     "We build smart, custom systems that learn from your data to predict outcomes, automate tasks, and solve complex problems, giving you a competitive edge.",
-     [("Custom AI & ML Model Development", "Designing and building specialized machine learning and artificial intelligence models for your unique needs."),
-      ("Predictive Analytics", "Creating models that forecast future trends, behaviors, or risks."),
-      ("Intelligent Automation", "Developing algorithms that streamline processes and enhance decision-making."),
-      ("Model Deployment & Integration", "Ensuring your AI solutions are seamlessly implemented and work effectively within your existing systems.")]),
-    ("analytics-evidence", "Advanced Analytics & Evidence Generation", "c-lime",
-     "We uncover insights from your data to inform key decisions.",
-     "We transform your raw data into clear, evidence-based findings using sophisticated statistical techniques. We help you uncover the true story within your data, understand what's working, and communicate those insights effectively.",
-     [("Real-World Data Analysis", "Extracting deep insights from existing, complex datasets (like health records or administrative data) to inform decisions."),
-      ("Advanced Statistical Modeling", "Applying rigorous statistical methods to explore relationships, evaluate interventions, and derive robust conclusions."),
-      ("Data Preparation for Research", "Meticulously cleaning, organizing, and preparing your data specifically for accurate and reliable analytical outcomes."),
-      ("Scientific Reporting & Dissemination", "Clearly translating complex findings into accessible reports, publications, and presentations for diverse audiences.")]),
-    ("protocol-compliance", "Protocol Design & Compliance", "c-gold",
-     "We ensure your data initiatives are robust, ethically sound, and fully compliant.",
-     "We help you build the foundational strategy for sound research, ensuring your studies are well-planned, designed to yield reliable results, and fully compliant with ethical guidelines and regulations.",
-     [("Project & Protocol Development", "Crafting comprehensive plans for projects, from initial concept to detailed data collection blueprints."),
-      ("Regulatory and Compliance Consultation", "Guiding you through the ethical considerations and regulatory requirements for your projects and data initiatives, including preparing for external reviews."),
-      ("Survey & Data Collection Tool Design", "Developing effective surveys, forms, and workflows to capture high-quality, relevant data efficiently."),
-      ("Workflow Optimization", "Streamlining your processes and documentation for maximum efficiency and integrity.")]),
+LINES = [
+    {"id": "statistics-research-design", "name": "Statistical Methods & Research Design", "color": "c-teal",
+     "short": "Study design, causal inference, and analysis of real-world data.",
+     "long": "We design studies and analyze data to answer specific questions, such as whether a program worked or which factors are associated with an outcome.",
+     "items": ["Study Design & Analysis Plans", "Causal Inference & Program Evaluation", "Longitudinal & Real-World Data Analysis",
+               "Advanced Statistical Methods", "Surveys & Data Collection", "Regulatory Compliance", "Research Reporting & Publication"],
+     "extra": "",
+     "lead": {"id": "amanda-luff", "name": "Amanda Luff, PhD, MPH", "title": "Partner, Statistical Methods &amp; Research Design",
+              "bio": "Amanda is a quantitative researcher and data strategist with over a decade of experience analyzing real-world data. She excels at designing and leading complex research, transforming data into clear, evidence-based findings grounded in rigorous methodology and ethical practices."}},
+    {"id": "machine-learning-ai", "name": "Applied Machine Learning & AI", "color": "c-orange",
+     "short": "Predictive modeling, natural language processing, and speech recognition.",
+     "long": "We build and train machine learning models on your data for prediction, classification, and language and speech tasks.",
+     "items": ["Machine Learning & Deep Learning", "Predictive Modeling", "Natural Language Processing & Speech Recognition",
+               "Model Fine-Tuning & Evaluation", "Training Data Development"],
+     "extra": "",
+     "lead": {"id": "duncan-clark", "name": "Duncan Clark, PhD", "title": "Partner, Applied Machine Learning &amp; AI",
+              "bio": "Duncan is a data scientist and machine learning specialist with a background in advanced mathematics. He excels at developing custom machine learning models for prediction, classification, natural language processing, and speech recognition."}},
 ]
+
+
+def amp(t):
+    return t.replace("&", "&amp;")
+
 
 MENU_ICON = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 
@@ -107,7 +105,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css?v={CSS_V}">
 
   <script type="application/ld+json">
 {json.dumps(graph, indent=2, ensure_ascii=False)}
@@ -138,13 +136,12 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
     <div class="container">
       <div>
         <h2>Lark Data Solutions</h2>
-        <p>Data strategy, machine learning, and research methodology consulting. Based in Milwaukee, Wisconsin, working with organizations everywhere.</p>
+        <p>Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.</p>
       </div>
       <div>
         <h2>Explore</h2>
         <ul>
           <li><a href="/our-services/">Our Services</a></li>
-          <li><a href="/about-us/">About Us</a></li>
           <li><a href="/contact-us/">Contact Us</a></li>
         </ul>
       </div>
@@ -177,7 +174,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
 '''
 
 
-def cta(heading="Ready to put your data to work?", text="Tell us about your project. The first consultation is free."):
+def cta(heading="Have a project in mind?", text="Tell us what you're working on. The first consultation is free."):
     return f'''    <section>
       <div class="container">
         <div class="cta">
@@ -185,7 +182,7 @@ def cta(heading="Ready to put your data to work?", text="Tell us about your proj
             <h2>{heading}</h2>
             <p>{text}</p>
           </div>
-          <a class="btn" href="/contact-us/">Schedule a Free Consultation</a>
+          <a class="btn" href="/contact-us/">Contact Us</a>
         </div>
       </div>
     </section>'''
@@ -203,22 +200,33 @@ def write(rel, html):
 
 
 # ---------- Home ----------
-cards = "\n".join(f'''          <a class="card" href="/our-services/#{sid}">
-            <div class="dot {c}" aria-hidden="true"></div>
-            <h3>{name}</h3>
-            <p>{short}</p>
-            <span class="more">Learn more &rarr;</span>
-          </a>''' for sid, name, c, short, *_ in SERVICES)
+def line_column(l):
+    p = l["lead"]
+    return f'''          <div class="line-col">
+            <a class="card" href="/our-services/#{l['id']}">
+              <div class="dot {l['color']}" aria-hidden="true"></div>
+              <h3>{amp(l['name'])}</h3>
+              <p>{l['short']}</p>
+              <span class="more">See services &rarr;</span>
+            </a>
+            <article class="partner" id="{p['id']}">
+              <img src="/assets/img/{p['id']}-320.webp" width="96" height="96" alt="Portrait of {p['name']}" loading="lazy">
+              <h3>{p['name']}</h3>
+              <p class="role">{p['title']}</p>
+              <p>{p['bio']}</p>
+            </article>
+          </div>'''
+
 
 home = f'''    <section class="hero">
       <div class="container">
         <div>
-          <span class="eyebrow">Data Science &amp; Research Consulting</span>
+          <span class="eyebrow">Data Science &amp; Research Consulting &middot; Milwaukee</span>
           <h1>Helping Your Data <span>Take Flight.</span></h1>
-          <p class="lead">Lark Data Solutions helps organizations turn complex data into clear strategies and intelligent solutions. We combine scientific rigor with leading technology to help you gain clarity from your data, overcome analytical hurdles, and build smart systems that make an impact.</p>
+          <p class="lead">Lark Data Solutions is a data science and research consulting firm in Milwaukee, Wisconsin. We help organizations design studies, analyze real-world data, and build machine learning models.</p>
           <div class="btn-row">
-            <a class="btn" href="/contact-us/">Schedule a Free Consultation</a>
-            <a class="btn btn-ghost" href="/our-services/">Explore Our Services</a>
+            <a class="btn" href="/contact-us/">Contact Us</a>
+            <a class="btn btn-ghost" href="/our-services/">Our Services</a>
           </div>
         </div>
         <div class="hero-art">
@@ -227,160 +235,190 @@ home = f'''    <section class="hero">
       </div>
     </section>
 
-    <section class="section-soft" aria-labelledby="help-heading">
+    <section class="section-soft" id="what-we-do" aria-labelledby="help-heading">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">What we do</span>
-          <h2 id="help-heading">How We Can Help You</h2>
-          <p class="lead">Explore how our core service areas empower your organization through data.</p>
+          <span class="eyebrow">Services &amp; Partners</span>
+          <h2 id="help-heading">What we do</h2>
         </div>
-        <div class="grid grid-4">
-{cards}
+        <div class="grid grid-2 lines">
+{chr(10).join(line_column(l) for l in LINES)}
         </div>
-      </div>
-    </section>
-
-    <section aria-labelledby="why-heading">
-      <div class="container split">
-        <div>
-          <span class="eyebrow">Why Lark</span>
-          <h2 id="why-heading">Why Choose Lark Data Solutions?</h2>
-          <p class="lead">Our backgrounds, rooted in real-world data analysis and advanced mathematics, ensure your solutions are not just innovative, but also scientifically sound and ethically grounded.</p>
-          <div class="team-preview">
-            <a href="/about-us/#duncan-clark"><img src="/assets/img/duncan-clark-320.webp" width="64" height="64" alt="Duncan Clark, PhD" loading="lazy"><span>Duncan Clark, PhD<small>Machine Learning &amp; Intelligent Systems</small></span></a>
-            <a href="/about-us/#amanda-luff"><img src="/assets/img/amanda-luff-320.webp" width="64" height="64" alt="Amanda Luff, PhD" loading="lazy"><span>Amanda Luff, PhD<small>Research Methodology &amp; Analytic Strategy</small></span></a>
-          </div>
-        </div>
-        <ul class="checklist">
-          <li><strong>Practical, implementable solutions.</strong> Based in Milwaukee, Wisconsin, we apply our expertise to deliver practical solutions and clear, strategic guidance that goes beyond a report.</li>
-          <li><strong>End to end.</strong> We connect the essentials, from designing foundational research and generating robust evidence, to the sophisticated implementation of machine learning and AI systems.</li>
-          <li><strong>Side by side.</strong> We collaborate with you, investing time to understand your challenges and working side-by-side to achieve your goals.</li>
-        </ul>
       </div>
     </section>
 
 {cta()}'''
 
 write("index.html", page("/",
-    "Lark Data Solutions | Data Strategy, Machine Learning & AI Consulting",
-    "Lark Data Solutions helps organizations turn complex data into clear strategies and intelligent solutions: data strategy, machine learning and AI, statistical analysis, and research protocol design. Based in Milwaukee, WI.",
-    home))
+    "Lark Data Solutions | Statistical Consulting, Research Design & Machine Learning",
+    "Lark Data Solutions is a data science and research consulting firm in Milwaukee, WI. We help organizations design studies, analyze real-world data, and build machine learning models.",
+    home, PEOPLE))
 
 # ---------- Services ----------
-blocks = "\n".join(f'''        <article class="service" id="{sid}" aria-labelledby="{sid}-h">
+blocks = "\n".join(f'''        <article class="service" id="{l['id']}" aria-labelledby="{l['id']}-h">
           <div class="service-intro">
-            <div class="dot {c}" aria-hidden="true"></div>
-            <h2 id="{sid}-h">{name}</h2>
-            <p>{long}</p>
+            <div class="dot {l['color']}" aria-hidden="true"></div>
+            <h2 id="{l['id']}-h">{amp(l['name'])}</h2>
+            <p>{l['long']}</p>
+            <p class="lead-by">Led by <a href="/#{l['lead']['id']}">{l['lead']['name']}</a></p>
           </div>
-          <ul>
-{chr(10).join(f"            <li><strong>{t}</strong><span>{d}</span></li>" for t, d in items)}
-          </ul>
-        </article>''' for sid, name, c, short, long, items in SERVICES)
+          <div>
+            <ul class="tags">
+{chr(10).join(f"              <li>{amp(t)}</li>" for t in l['items'])}
+            </ul>
+            {l['extra']}
+          </div>
+        </article>''' for l in LINES)
 
 services_schema = [{
-    "@type": "Service", "name": name, "description": long, "serviceType": name,
+    "@type": "Service", "name": l["name"], "description": l["long"], "serviceType": l["name"],
     "provider": {"@id": SITE + "/#organization"}, "areaServed": "Worldwide",
-    "url": f"{SITE}/our-services/#{sid}",
-    "hasOfferCatalog": {"@type": "OfferCatalog", "name": name, "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": t, "description": d}} for t, d in items]},
-} for sid, name, c, short, long, items in SERVICES]
+    "url": f"{SITE}/our-services/#{l['id']}",
+    "hasOfferCatalog": {"@type": "OfferCatalog", "name": l["name"], "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": t}} for t in l["items"]]},
+} for l in LINES]
+
+products = '''        <article class="service" id="products" aria-labelledby="products-h">
+          <div class="service-intro">
+            <div class="dot c-gold" aria-hidden="true"></div>
+            <h2 id="products-h">Products</h2>
+          </div>
+          <div>
+            <a class="card product-card" href="https://fspfinder.com" rel="noopener" target="_blank">
+              <h3>FSP Finder</h3>
+              <p>A speech recognition tool radio stations use to make broadcast-ready edits of songs.</p>
+              <span class="more">Visit fspfinder.com &rarr;</span>
+            </a>
+          </div>
+        </article>'''
+
+services_schema.append({
+    "@type": "SoftwareApplication", "name": "FSP Finder", "url": "https://fspfinder.com",
+    "applicationCategory": "MultimediaApplication", "operatingSystem": "Web",
+    "description": "A speech recognition tool radio stations use to make broadcast-ready edits of songs.",
+    "publisher": {"@id": SITE + "/#organization"}})
 
 services = f'''    <section class="page-hero">
       <div class="container">
         <span class="eyebrow">Our Services</span>
-        <h1>What We Do</h1>
-        <p class="lead">At Lark Data Solutions, we help organizations of all sizes leverage their data to make smarter decisions, understand complex trends, and build intelligent solutions. We translate intricate data into clear, actionable insights.</p>
+        <h1>Our services</h1>
+        <p class="lead">Our work covers statistical methods and research design, and applied machine learning and AI. Projects often use both.</p>
       </div>
     </section>
 
     <section style="padding-top:24px">
       <div class="container">
 {blocks}
+{products}
       </div>
     </section>
 
-{cta("Not sure where to start?", "We'll help you figure out which services fit your goals. The first consultation is free.")}'''
+{cta()}'''
 
 write("our-services/index.html", page("/our-services/",
-    "Services: Data Strategy, ML & AI, Analytics, Protocol Design | Lark Data Solutions",
-    "Data strategy and analytics consulting, custom machine learning and AI solutions, advanced statistical analysis and evidence generation, and research protocol design and compliance.",
+    "Services: Statistical Methods, Research Design & Machine Learning | Lark Data Solutions",
+    "Study design, causal inference and program evaluation, real-world data analysis, regulatory compliance, predictive modeling, natural language processing, and speech recognition.",
     services, services_schema))
 
-# ---------- About ----------
-def person(pid, img, name, role, bio, tags, li):
-    return f'''        <article class="person" id="{pid}">
-          <img src="/assets/img/{img}.webp" width="640" height="640" alt="Portrait of {name}" loading="lazy">
-          <div>
-            <h2>{name}</h2>
-            <p class="role">{role}</p>
-            <p>{bio}</p>
-            <h3>Expertise</h3>
-            <ul class="tags">
-{chr(10).join(f"              <li>{t}</li>" for t in tags)}
-            </ul>
-            <a href="{li}" rel="noopener" target="_blank">More about {name.split()[0]} on LinkedIn &rarr;</a>
-          </div>
-        </article>'''
-
-about = f'''    <section class="page-hero">
-      <div class="container">
-        <span class="eyebrow">About Us</span>
-        <h1>Real-world data analysis meets advanced data science.</h1>
-        <p class="lead">Lark Data Solutions was founded on a simple idea: bringing together real-world data analysis and advanced data science. Our partners, with backgrounds in applied mathematics and statistics, offer a powerful combination of analytical insight and technical ability. Based in Milwaukee, Wisconsin, we help global organizations translate complex data into clear plans and effective solutions.</p>
-      </div>
-    </section>
-
-    <section style="padding-top:24px" aria-labelledby="partners-heading">
-      <div class="container">
-        <h2 id="partners-heading" class="eyebrow" style="font-size:0.8rem">Meet Our Partners</h2>
-{person("duncan-clark", "duncan-clark", "Duncan Clark, PhD", "Partner, Machine Learning &amp; Intelligent Systems",
-        "Duncan is a data scientist and machine learning specialist. He excels at translating complex concepts into practical, impactful solutions.",
-        ["Machine Learning &amp; Deep Learning", "Predictive Modeling &amp; AI Systems", "Python Development", "Natural Language Processing"],
-        "https://www.linkedin.com/in/duncan-clark-1b3548288/")}
-{person("amanda-luff", "amanda-luff", "Amanda Luff, PhD", "Partner, Research Methodology &amp; Analytic Strategy",
-        "Amanda is a quantitative researcher and data strategist with over a decade of experience analyzing real-world data. She excels at designing and leading complex research, transforming data into clear, evidence-based findings grounded in rigorous methodology and ethical practices.",
-        ["Research &amp; Study Design", "Real World Data Analysis &amp; Evidence Generation", "Advanced Statistical Methods", "Research Compliance", "Research Reporting &amp; Dissemination"],
-        "https://www.linkedin.com/in/amanda-luff/")}
-      </div>
-    </section>
-
-{cta("Let's work together.", "Tell us about your data challenge and we'll find the right approach.")}'''
-
-write("about-us/index.html", page("/about-us/",
-    "About Us: Duncan Clark, PhD & Amanda Luff, PhD | Lark Data Solutions",
-    "Meet the partners of Lark Data Solutions: Duncan Clark, PhD (machine learning and intelligent systems) and Amanda Luff, PhD (research methodology and analytic strategy). Based in Milwaukee, WI.",
-    about, PEOPLE))
+# ---------- /about-us/ (merged into the home page) -> /#partners ----------
+write("about-us/index.html", f'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lark Data Solutions</title>
+  <link rel="canonical" href="{SITE}/">
+  <meta name="robots" content="noindex, follow">
+  <meta http-equiv="refresh" content="0; url=../#what-we-do">
+</head>
+<body><p>This page has moved to <a href="/">the home page</a>.</p></body>
+</html>
+''')
 
 # ---------- Contact ----------
 contact = f'''    <section class="page-hero">
       <div class="container">
         <span class="eyebrow">Contact Us</span>
-        <h1>Let's Connect!</h1>
-        <p class="lead">We encourage prospective clients to use our contact form, as it helps us understand your needs efficiently. If you prefer, you can email us directly.</p>
+        <h1>Contact us</h1>
+        <p class="lead">Tell us about your project and we'll reply to set up a free consultation. You can also email us directly.</p>
       </div>
     </section>
 
     <section style="padding-top:16px">
       <div class="container contact-grid">
         <div class="card">
-          <div class="dot c-teal" aria-hidden="true"></div>
-          <h2>Contact form</h2>
-          <p>Share a few details about your organization and project goals, and we'll follow up to schedule a free consultation.</p>
-          <a class="btn" href="{FORM}" rel="noopener" target="_blank">Open the Contact Form</a>
+          <h2>Send us a message</h2>
+          <form class="contact-form" action="{FORM}" method="POST">
+            <input type="hidden" name="_subject" value="New inquiry from larkdatasolutions.com">
+            <div class="field-row">
+              <label>Name <span class="req" aria-hidden="true">*</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>Email <span class="req" aria-hidden="true">*</span>
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Organization
+                <input type="text" name="organization" autocomplete="organization">
+              </label>
+              <label>Role or title
+                <input type="text" name="role" autocomplete="organization-title">
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Phone <span class="opt">(optional)</span>
+                <input type="tel" name="phone" autocomplete="tel">
+              </label>
+              <label>Area of interest
+                <select name="area">
+                  <option value="">Select one</option>
+                  <option>Statistical Methods &amp; Research Design</option>
+                  <option>Applied Machine Learning &amp; AI</option>
+                  <option>Both</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
+            </div>
+            <label>About your project <span class="req" aria-hidden="true">*</span>
+              <textarea name="message" rows="6" required></textarea>
+            </label>
+            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit">Send message</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
         <div class="card">
-          <div class="dot c-orange" aria-hidden="true"></div>
           <h2>Email</h2>
-          <p>Prefer email? Reach us directly and we'll get back to you.</p>
+          <p>Write to us directly.</p>
           <a class="btn btn-ghost" href="mailto:{EMAIL}">{EMAIL}</a>
         </div>
       </div>
-    </section>'''
+    </section>
+
+    <script>
+      (function () {{
+        var f = document.querySelector('.contact-form'), s = f.querySelector('.form-status'), b = f.querySelector('button');
+        f.addEventListener('submit', function (e) {{
+          e.preventDefault();
+          b.disabled = true; s.className = 'form-status'; s.textContent = 'Sending...';
+          fetch(f.action, {{ method: 'POST', body: new FormData(f), headers: {{ 'Accept': 'application/json' }} }})
+            .then(function (r) {{
+              if (!r.ok) throw new Error();
+              f.reset(); s.className = 'form-status ok';
+              s.textContent = 'Thanks. We received your message and will reply by email.';
+            }})
+            .catch(function () {{
+              s.className = 'form-status err';
+              s.textContent = 'Your message could not be sent. Please email us at {EMAIL}.';
+            }})
+            .finally(function () {{ b.disabled = false; }});
+        }});
+      }})();
+    </script>'''
 
 write("contact-us/index.html", page("/contact-us/",
     "Contact Us | Lark Data Solutions",
-    "Get in touch with Lark Data Solutions to schedule a free consultation about data strategy, machine learning and AI, statistical analysis, or research protocol design.",
+    "Contact Lark Data Solutions to set up a free consultation about statistical methods, research design, or machine learning.",
     contact, [{"@type": "ContactPage", "url": SITE + "/contact-us/", "about": {"@id": SITE + "/#organization"}}]))
 
 # ---------- Policies ----------
@@ -422,7 +460,7 @@ write("404.html", page("/404.html", "Page Not Found | Lark Data Solutions",
 
 # ---------- robots + sitemap ----------
 open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
-urls = [("/", "1.0"), ("/our-services/", "0.9"), ("/about-us/", "0.8"), ("/contact-us/", "0.7"), ("/policies/", "0.3")]
+urls = [("/", "1.0"), ("/our-services/", "0.9"), ("/contact-us/", "0.7"), ("/policies/", "0.3")]
 open(os.path.join(OUT, "sitemap.xml"), "w").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>2026-10-13</lastmod>\n    <priority>{p}</priority>\n  </url>\n" for u, p in urls) +
