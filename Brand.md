@@ -12,7 +12,7 @@ Defined as tokens at the top of `docs/assets/css/style.css`.
 | Token | Hex | Use |
 |---|---|---|
 | `--ink` | #0f1b2d | Text, dark backgrounds, buttons |
-| `--teal` | #0a8c80 | Links, labels (dark enough for text contrast) |
+| `--teal` | #08776d | Links, labels, roles (darkened from #0a8c80 in Oct 2026 to pass WCAG AA contrast on the light gray sections) |
 | `--teal-bright` | #19c6b4 | Accents, checkmarks, dots |
 | `--orange` | #f26b1d | Accent dot |
 | `--lime` | #a6d10c | Accent dot |
@@ -20,11 +20,11 @@ Defined as tokens at the top of `docs/assets/css/style.css`.
 
 The accent colors come from the dot graphic on the original site (`docs/assets/img/data-dots.webp`, used as the home page hero art).
 
-Font: **Plus Jakarta Sans** (Google Fonts), weights 400 to 800.
+Font: **Plus Jakarta Sans**, weights 400 to 800. Self-hosted as one variable file, Latin characters only: `docs/assets/fonts/plus-jakarta-sans-latin.woff2` (from Google Fonts, SIL Open Font License).
 
 ## Current logo (placeholder)
 
-Three dots (orange, gold, teal) rising on a navy rounded square: `docs/assets/img/mark.svg`, `docs/favicon.svg`, `docs/favicon.ico`, `docs/apple-touch-icon.png`. The social share image is `docs/assets/img/og-image.png` (navy, tagline, dot cluster). The header pairs the mark with the text "Lark / DATA SOLUTIONS". This stays until a new logo is chosen.
+Three dots (orange, gold, teal) rising on a navy rounded square: `docs/assets/img/mark.svg`, `docs/favicon.svg`, `docs/favicon.ico`, `docs/apple-touch-icon.png`. The social share card is `docs/assets/img/og-image.png` (1200x630, navy, everything centered: the logo mark on its rounded square, "Lark Data Solutions," the tagline, "Statistics, research design, and machine learning consulting.", and the web address with Milwaukee. Chosen after rejecting versions with the dot plot and with a large mark on the right, which left awkward empty space). When the logo changes, redraw this card to match. Regenerate it with `src/og/make_og.py` (instructions at the top of that file). The header pairs the mark with the text "Lark / DATA SOLUTIONS". This stays until a new logo is chosen.
 
 ## New logo: what Amanda wants
 

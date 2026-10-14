@@ -60,5 +60,4 @@ How larkdatasolutions.com is hosted and connected, as of October 13, 2026.
 - [ ] Set up a Google Business Profile for local search.
 - [ ] fspfinder.com footer still says "a service of Lark Data Solutions LLC" (Duncan's site, separate repo).
 - [ ] Optional: make sitemap `lastmod` dates update automatically (currently fixed at 2026-10-13).
-- [ ] Optional: host the Plus Jakarta Sans font locally instead of loading it from Google Fonts (faster first load).
-- [ ] New logo (see `Brand.md`). When it changes, update the logo alt text in `src/build.py` and the `logo` in the structured data.
+- [ ] New logo (see `Brand.md`). When it changes, update the logo alt text in `src/build.py`, the `logo` in the structured data, and the social card (`src/og/make_og.py`).

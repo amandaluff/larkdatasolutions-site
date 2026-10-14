@@ -1,4 +1,12 @@
 /* Lark Data Solutions — site styles */
+/* Plus Jakarta Sans (SIL Open Font License), Latin subset, variable weight 400-800. Self-hosted for speed. */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+}
 :root {
   --ink: #0f1b2d;
   --ink-soft: #3b4658;
@@ -6,7 +14,7 @@
   --line: #e3e7ee;
   --bg: #ffffff;
   --bg-soft: #f5f7fa;
-  --teal: #0a8c80;
+  --teal: #08776d;
   --teal-bright: #19c6b4;
   --orange: #f26b1d;
   --lime: #a6d10c;

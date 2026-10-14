@@ -124,9 +124,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="preload" href="/assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css?v={CSS_V}">
 
   <script type="application/ld+json">
@@ -202,6 +200,8 @@ def write(rel, html):
     prefix = "../" * rel.count("/")
     html = re.sub(r'(href|src)="/(?!/)([^"]*)"',
                   lambda m: f'{m.group(1)}="{prefix + m.group(2) or "./"}"', html)
+    html = re.sub(r'srcset="([^"]*)"',
+                  lambda m: 'srcset="' + re.sub(r'(^|, )/(?!/)', lambda n: n.group(1) + prefix, m.group(1)) + '"', html)
     # Bing flags images with missing or empty alt text, so every image needs one.
     # Decorative images get alt text plus aria-hidden="true" to keep screen readers quiet.
     for img in re.findall(r"<img\b[^>]*>", html):
@@ -243,7 +243,7 @@ service_cards = "\n".join(f'''          <article class="line-card" id="{l['id']}
           </article>''' for l in LINES)
 
 partner_cards = "\n".join(f'''          <article class="partner" id="{l['lead']['id']}">
-            <img src="/assets/img/{l['lead']['id']}-320.webp" width="96" height="96" alt="Portrait of {l['lead']['name']}" loading="lazy">
+            <img src="/assets/img/{l['lead']['id']}-192.webp" srcset="/assets/img/{l['lead']['id']}-192.webp 192w, /assets/img/{l['lead']['id']}-320.webp 320w" sizes="96px" width="96" height="96" alt="Portrait of {l['lead']['name']}" loading="lazy">
             <h3>{l['lead']['name']}</h3>
             <p class="role">{l['lead']['title']}</p>
             <p>{l['lead']['bio']}</p>
@@ -285,7 +285,7 @@ home = f'''    <section class="hero">
           </div>
         </div>
         <div class="hero-art">
-          <img src="/assets/img/data-dots.webp" width="1000" height="501" alt="Decorative graphic of orange, yellow, green, teal, and gray dots arranged in rising columns, like a scatter plot" aria-hidden="true" fetchpriority="high">
+          <img src="/assets/img/data-dots-720.webp" srcset="/assets/img/data-dots-480.webp 480w, /assets/img/data-dots-720.webp 720w, /assets/img/data-dots.webp 1000w" sizes="(max-width: 860px) min(100vw - 32px, 480px), 480px" width="1000" height="501" alt="Decorative graphic of orange, yellow, green, teal, and gray dots arranged in rising columns, like a scatter plot" aria-hidden="true" fetchpriority="high">
         </div>
       </div>
     </section>
