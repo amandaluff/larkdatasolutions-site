@@ -5,6 +5,7 @@ SITE = "https://www.larkdatasolutions.com"
 EMAIL = "contact@larkdatasolutions.com"
 FORM = "https://formspree.io/f/mbgdzqze"
 YEAR = "2026"
+GA_ID = "G-YW9BVNQKPN"
 
 import hashlib
 # Changes whenever style.css changes, so browsers fetch the new version after an update.
@@ -91,6 +92,16 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA_ID}');
+  </script>
+
   <title>{title}</title>
   <meta name="description" content="{desc}">
   <meta name="robots" content="{robots}">
@@ -373,6 +384,7 @@ home = f'''    <section class="hero">
           fetch(f.action, {{ method: 'POST', body: new FormData(f), headers: {{ 'Accept': 'application/json' }} }})
             .then(function (r) {{
               if (!r.ok) throw new Error();
+              if (window.gtag) gtag('event', 'generate_lead', {{ form: 'contact' }});
               f.reset(); s.className = 'form-status ok';
               s.textContent = 'Thanks. We received your message and will reply by email.';
             }})
