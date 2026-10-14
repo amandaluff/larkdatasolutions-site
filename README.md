@@ -1,6 +1,6 @@
 # larkdatasolutions.com
 
-Website for Lark Data Solutions, a DBA of Lark Services LLC.
+Website for Lark Data Solutions.
 
 - `docs/` is the published site (GitHub Pages serves this folder).
 - `src/build.py` generates the HTML pages in `docs/`. Run `python3 src/build.py docs` after editing it.

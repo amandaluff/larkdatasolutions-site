@@ -156,7 +156,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
         </ul>
       </div>
       <div class="footer-legal">
-        <span>&copy; {YEAR} Lark Services LLC. All rights reserved. Lark Data Solutions is a trade name of Lark Services LLC.</span>
+        <span>&copy; {YEAR} Lark Services LLC. All rights reserved.</span>
         <a href="/policies/">Terms, Privacy &amp; Disclaimers</a>
       </div>
     </div>
@@ -382,7 +382,7 @@ write("contact-us/index.html", page("/contact-us/",
 legal = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "policies_body.html"), encoding="utf-8").read()
 write("policies/index.html", page("/policies/",
     "Terms of Service, Privacy Policy & Disclaimers | Lark Data Solutions",
-    "Terms of service, privacy policy, and disclaimers for larkdatasolutions.com, operated by Lark Services LLC, doing business as Lark Data Solutions.",
+    "Terms of service, privacy policy, and disclaimers for larkdatasolutions.com, operated by Lark Services LLC.",
     legal))
 
 # ---------- /home (old Google Sites URL) -> / ----------

@@ -1,12 +1,12 @@
 # Lark Data Solutions
 
-Lark Data Solutions is a data science and research consulting business (Lark Services LLC, DBA Lark Data Solutions). It is **completely unaffiliated with Lark Doula**. Never use, reference, or copy anything from the Lark Doula folder or its websites here.
+Lark Data Solutions is a data science and research consulting business owned by Lark Services LLC. It is **completely unaffiliated with Lark Doula**. Never use, reference, or copy anything from the Lark Doula folder or its websites here.
 
 ## Business naming
 
-- Legal entity: **Lark Services LLC**. Trade name (DBA): **Lark Data Solutions**.
+- The business name is **Lark Data Solutions** (no "LLC"). The LLC is **Lark Services LLC**. Don't use "DBA" or "trade name" wording.
 - Never write "Lark Data Solutions LLC".
-- Copyright and legal notices name Lark Services LLC.
+- The footer copyright and the terms/privacy/disclaimers refer to Lark Services LLC.
 
 ## Website
 
