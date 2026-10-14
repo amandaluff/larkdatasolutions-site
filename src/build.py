@@ -271,20 +271,18 @@ write("index.html", page("/",
     home, PEOPLE))
 
 # ---------- Services ----------
-blocks = "\n".join(f'''        <article class="service" id="{l['id']}" aria-labelledby="{l['id']}-h">
-          <div class="service-intro">
+blocks = "\n".join(f'''          <article class="line-card" id="{l['id']}" aria-labelledby="{l['id']}-h">
             <div class="dot {l['color']}" aria-hidden="true"></div>
             <h2 id="{l['id']}-h">{amp(l['name'])}</h2>
             <p>{l['long']}</p>
-            <p class="lead-by">Led by <a href="/#{l['lead']['id']}">{l['lead']['name']}</a></p>
-          </div>
-          <div>
-            <ul class="tags">
+            <a class="lead-by" href="/#{l['lead']['id']}">
+              <img src="/assets/img/{l['lead']['id']}-320.webp" width="40" height="40" alt="Portrait of {l['lead']['name']}" loading="lazy">
+              <span>Led by {l['lead']['name']}</span>
+            </a>
+            <ul class="checklist">
 {chr(10).join(f"              <li>{amp(t)}</li>" for t in l['items'])}
             </ul>
-            {l['extra']}
-          </div>
-        </article>''' for l in LINES)
+          </article>''' for l in LINES)
 
 services_schema = [{
     "@type": "Service", "name": l["name"], "description": l["long"], "serviceType": l["name"],
@@ -294,18 +292,16 @@ services_schema = [{
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": t}} for t in l["items"]]},
 } for l in LINES]
 
-products = '''        <article class="service" id="products" aria-labelledby="products-h">
-          <div class="service-intro">
+products = '''        <article class="product-band" id="products" aria-labelledby="products-h">
+          <div class="product-label">
             <div class="dot c-gold" aria-hidden="true"></div>
             <h2 id="products-h">Products</h2>
           </div>
-          <div>
-            <a class="card product-card" href="https://fspfinder.com" rel="noopener" target="_blank">
-              <h3>FSP Finder</h3>
-              <p>A speech recognition tool radio stations use to make broadcast-ready edits of songs.</p>
-              <span class="more">Visit fspfinder.com &rarr;</span>
-            </a>
+          <div class="product-body">
+            <h3>FSP Finder</h3>
+            <p>A speech recognition tool radio stations use to make broadcast-ready edits of songs.</p>
           </div>
+          <a class="btn btn-ghost" href="https://fspfinder.com" rel="noopener" target="_blank">Visit fspfinder.com</a>
         </article>'''
 
 services_schema.append({
@@ -324,7 +320,9 @@ services = f'''    <section class="page-hero">
 
     <section style="padding-top:24px">
       <div class="container">
+        <div class="line-grid">
 {blocks}
+        </div>
 {products}
       </div>
     </section>
