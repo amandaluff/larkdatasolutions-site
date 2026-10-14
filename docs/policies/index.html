@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="../assets/css/style.css?v=ebd5542b">
+  <link rel="stylesheet" href="../assets/css/style.css?v=6c280018">
 
   <script type="application/ld+json">
 {
@@ -86,7 +86,7 @@
 }
   </script>
 </head>
-<body>
+<body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="site-header">
@@ -97,9 +97,10 @@
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <nav class="nav" id="site-nav" aria-label="Main">
-        <a href="../">Home</a>
-        <a href="../our-services/">Services</a>
-        <a class="btn" href="../contact-us/">Contact Us</a>
+        <a href="../#top">Home</a>
+        <a href="../#services">Services</a>
+        <a href="../#partners">Partners</a>
+        <a class="btn" href="../#contact">Contact Us</a>
       </nav>
     </div>
   </header>
@@ -167,18 +168,11 @@
   <footer class="site-footer">
     <div class="container">
       <div>
-        <h2>Lark Data Solutions</h2>
+        <p class="footer-head">Lark Data Solutions</p>
         <p>Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.</p>
       </div>
       <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="../our-services/">Our Services</a></li>
-          <li><a href="../contact-us/">Contact Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Get in touch</h2>
+        <p class="footer-head">Get in touch</p>
         <ul>
           <li><a href="mailto:contact@larkdatasolutions.com">contact@larkdatasolutions.com</a></li>
           <li>Milwaukee, Wisconsin</li>
@@ -198,6 +192,13 @@
         var open = n.classList.toggle('open');
         b.setAttribute('aria-expanded', open);
         b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      n.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+          n.classList.remove('open');
+          b.setAttribute('aria-expanded', false);
+          b.setAttribute('aria-label', 'Open menu');
+        }
       });
     })();
   </script>

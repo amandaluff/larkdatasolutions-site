@@ -10,7 +10,7 @@ import hashlib
 # Changes whenever style.css changes, so browsers fetch the new version after an update.
 CSS_V = hashlib.md5(open(os.path.join(OUT, "assets", "css", "style.css"), "rb").read()).hexdigest()[:8]
 
-NAV = [("/", "Home"), ("/our-services/", "Services")]
+NAV = [("/#top", "Home"), ("/#services", "Services"), ("/#partners", "Partners")]
 
 ORG = {
     "@type": "ProfessionalService",
@@ -122,7 +122,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
 {json.dumps(graph, indent=2, ensure_ascii=False)}
   </script>
 </head>
-<body>
+<body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="site-header">
@@ -134,7 +134,7 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">{MENU_ICON}</button>
       <nav class="nav" id="site-nav" aria-label="Main">
 {nav}
-        <a class="btn" href="/contact-us/"{" aria-current=\"page\"" if path == "/contact-us/" else ""}>Contact Us</a>
+        <a class="btn" href="/#contact">Contact Us</a>
       </nav>
     </div>
   </header>
@@ -146,18 +146,11 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
   <footer class="site-footer">
     <div class="container">
       <div>
-        <h2>Lark Data Solutions</h2>
+        <p class="footer-head">Lark Data Solutions</p>
         <p>Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.</p>
       </div>
       <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="/our-services/">Our Services</a></li>
-          <li><a href="/contact-us/">Contact Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Get in touch</h2>
+        <p class="footer-head">Get in touch</p>
         <ul>
           <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
           <li>Milwaukee, Wisconsin</li>
@@ -178,25 +171,18 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
         b.setAttribute('aria-expanded', open);
         b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       }});
+      n.addEventListener('click', function (e) {{
+        if (e.target.closest('a')) {{
+          n.classList.remove('open');
+          b.setAttribute('aria-expanded', false);
+          b.setAttribute('aria-label', 'Open menu');
+        }}
+      }});
     }})();
   </script>
 </body>
 </html>
 '''
-
-
-def cta(heading="Have a project in mind?", text="Tell us what you're working on. The first consultation is free."):
-    return f'''    <section>
-      <div class="container">
-        <div class="cta">
-          <div>
-            <h2>{heading}</h2>
-            <p>{text}</p>
-          </div>
-          <a class="btn" href="/contact-us/">Contact Us</a>
-        </div>
-      </div>
-    </section>'''
 
 
 def write(rel, html):
@@ -215,34 +201,76 @@ def write(rel, html):
     open(p, "w", encoding="utf-8").write(html)
 
 
-# ---------- Home ----------
-def line_column(l):
-    p = l["lead"]
-    return f'''          <div class="line-col">
-            <a class="card" href="/our-services/#{l['id']}">
-              <div class="dot {l['color']}" aria-hidden="true"></div>
-              <h3>{amp(l['name'])}</h3>
-              <p>{l['short']}</p>
-              <span class="more">See services &rarr;</span>
-            </a>
-            <article class="partner" id="{p['id']}">
-              <img src="/assets/img/{p['id']}-320.webp" width="96" height="96" alt="Portrait of {p['name']}" loading="lazy">
-              <h3>{p['name']}</h3>
-              <p class="role">{p['title']}</p>
-              <p>{p['bio']}</p>
-            </article>
-          </div>'''
+# ---------- Redirects for pages merged into the home page ----------
+def redirect(rel, anchor):
+    write(rel, f'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lark Data Solutions</title>
+  <link rel="canonical" href="{SITE}/">
+  <meta name="robots" content="noindex, follow">
+  <meta http-equiv="refresh" content="0; url=../#{anchor}">
+</head>
+<body><p>This page has moved to <a href="/#{anchor}">the home page</a>.</p></body>
+</html>
+''')
 
+
+redirect("our-services/index.html", "services")
+redirect("about-us/index.html", "partners")
+redirect("contact-us/index.html", "contact")
+
+# ---------- Home (the whole site on one page) ----------
+service_cards = "\n".join(f'''          <article class="line-card" id="{l['id']}" aria-labelledby="{l['id']}-h">
+            <div class="dot {l['color']}" aria-hidden="true"></div>
+            <h3 id="{l['id']}-h">{amp(l['name'])}</h3>
+            <p>{l['long']}</p>
+            <ul class="checklist">
+{chr(10).join(f"              <li>{amp(t)}</li>" for t in l['items'])}
+            </ul>
+          </article>''' for l in LINES)
+
+partner_cards = "\n".join(f'''          <article class="partner" id="{l['lead']['id']}">
+            <img src="/assets/img/{l['lead']['id']}-320.webp" width="96" height="96" alt="Portrait of {l['lead']['name']}" loading="lazy">
+            <h3>{l['lead']['name']}</h3>
+            <p class="role">{l['lead']['title']}</p>
+            <p>{l['lead']['bio']}</p>
+          </article>''' for l in LINES)
+
+products = '''        <article class="product-band" id="products" aria-labelledby="products-h">
+          <div class="product-label">
+            <div class="dot c-gold" aria-hidden="true"></div>
+            <h3 id="products-h">Products</h3>
+          </div>
+          <div class="product-body">
+            <h4>FSP Finder</h4>
+            <p>A speech recognition tool radio stations use to make broadcast-ready edits of songs.</p>
+          </div>
+          <a class="btn btn-ghost" href="https://fspfinder.com" rel="noopener" target="_blank">Visit fspfinder.com</a>
+        </article>'''
+
+home_schema = PEOPLE + [{
+    "@type": "Service", "name": l["name"], "description": l["long"], "serviceType": l["name"],
+    "provider": {"@id": SITE + "/#organization"}, "areaServed": "Worldwide",
+    "url": f"{SITE}/#{l['id']}",
+    "hasOfferCatalog": {"@type": "OfferCatalog", "name": l["name"], "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": t}} for t in l["items"]]},
+} for l in LINES] + [{
+    "@type": "SoftwareApplication", "name": "FSP Finder", "url": "https://fspfinder.com",
+    "applicationCategory": "MultimediaApplication", "operatingSystem": "Web",
+    "description": "A speech recognition tool radio stations use to make broadcast-ready edits of songs.",
+    "publisher": {"@id": SITE + "/#organization"}}]
 
 home = f'''    <section class="hero">
       <div class="container">
         <div>
-          <span class="eyebrow">Data Science &amp; Research Consulting &middot; Milwaukee</span>
-          <h1>Helping Your Data <span>Take Flight.</span></h1>
+          <h1 class="eyebrow">Data Science &amp; Research Consulting in Milwaukee</h1>
+          <p class="tagline">Helping Your Data <span>Take Flight.</span></p>
           <p class="lead">Lark Data Solutions is a data science and research consulting firm in Milwaukee, Wisconsin. We help organizations design studies, analyze real-world data, and build machine learning models.</p>
           <div class="btn-row">
-            <a class="btn" href="/contact-us/">Contact Us</a>
-            <a class="btn btn-ghost" href="/our-services/">Our Services</a>
+            <a class="btn" href="#contact">Contact Us</a>
+            <a class="btn btn-ghost" href="#services">Our Services</a>
           </div>
         </div>
         <div class="hero-art">
@@ -251,116 +279,42 @@ home = f'''    <section class="hero">
       </div>
     </section>
 
-    <section class="section-soft" id="what-we-do" aria-labelledby="help-heading">
+    <section class="section-soft anchor" id="services" aria-labelledby="services-heading">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Services &amp; Partners</span>
-          <h2 id="help-heading">What we do</h2>
+          <span class="eyebrow">Services</span>
+          <h2 id="services-heading">What we do</h2>
+          <p class="lead">Our work covers statistical methods and research design, and applied machine learning and AI. Projects often use both.</p>
         </div>
-        <div class="grid grid-2 lines">
-{chr(10).join(line_column(l) for l in LINES)}
-        </div>
-      </div>
-    </section>
-
-{cta()}'''
-
-write("index.html", page("/",
-    "Lark Data Solutions | Data Science Consulting, Milwaukee",
-    "Data science and research consulting firm in Milwaukee, WI. We design studies, analyze real-world data, and build machine learning models.",
-    home, PEOPLE))
-
-# ---------- Services ----------
-blocks = "\n".join(f'''          <article class="line-card" id="{l['id']}" aria-labelledby="{l['id']}-h">
-            <div class="dot {l['color']}" aria-hidden="true"></div>
-            <h2 id="{l['id']}-h">{amp(l['name'])}</h2>
-            <p>{l['long']}</p>
-            <a class="lead-by" href="/#{l['lead']['id']}">
-              <img src="/assets/img/{l['lead']['id']}-320.webp" width="40" height="40" alt="Portrait of {l['lead']['name']}" loading="lazy">
-              <span>Led by {l['lead']['name']}</span>
-            </a>
-            <ul class="checklist">
-{chr(10).join(f"              <li>{amp(t)}</li>" for t in l['items'])}
-            </ul>
-          </article>''' for l in LINES)
-
-services_schema = [{
-    "@type": "Service", "name": l["name"], "description": l["long"], "serviceType": l["name"],
-    "provider": {"@id": SITE + "/#organization"}, "areaServed": "Worldwide",
-    "url": f"{SITE}/our-services/#{l['id']}",
-    "hasOfferCatalog": {"@type": "OfferCatalog", "name": l["name"], "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": t}} for t in l["items"]]},
-} for l in LINES]
-
-products = '''        <article class="product-band" id="products" aria-labelledby="products-h">
-          <div class="product-label">
-            <div class="dot c-gold" aria-hidden="true"></div>
-            <h2 id="products-h">Products</h2>
-          </div>
-          <div class="product-body">
-            <h3>FSP Finder</h3>
-            <p>A speech recognition tool radio stations use to make broadcast-ready edits of songs.</p>
-          </div>
-          <a class="btn btn-ghost" href="https://fspfinder.com" rel="noopener" target="_blank">Visit fspfinder.com</a>
-        </article>'''
-
-services_schema.append({
-    "@type": "SoftwareApplication", "name": "FSP Finder", "url": "https://fspfinder.com",
-    "applicationCategory": "MultimediaApplication", "operatingSystem": "Web",
-    "description": "A speech recognition tool radio stations use to make broadcast-ready edits of songs.",
-    "publisher": {"@id": SITE + "/#organization"}})
-
-services = f'''    <section class="page-hero">
-      <div class="container">
-        <span class="eyebrow">Our Services</span>
-        <h1>Our services</h1>
-        <p class="lead">Our work covers statistical methods and research design, and applied machine learning and AI. Projects often use both.</p>
-      </div>
-    </section>
-
-    <section style="padding-top:24px">
-      <div class="container">
         <div class="line-grid">
-{blocks}
+{service_cards}
         </div>
 {products}
       </div>
     </section>
 
-{cta()}'''
-
-write("our-services/index.html", page("/our-services/",
-    "Statistics & Machine Learning Services | Lark Data Solutions",
-    "Study design, causal inference, real-world data analysis, regulatory compliance, predictive modeling, natural language processing, and speech recognition.",
-    services, services_schema))
-
-# ---------- /about-us/ (merged into the home page) -> /#partners ----------
-write("about-us/index.html", f'''<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Lark Data Solutions</title>
-  <link rel="canonical" href="{SITE}/">
-  <meta name="robots" content="noindex, follow">
-  <meta http-equiv="refresh" content="0; url=../#what-we-do">
-</head>
-<body><p>This page has moved to <a href="/">the home page</a>.</p></body>
-</html>
-''')
-
-# ---------- Contact ----------
-contact = f'''    <section class="page-hero">
+    <section class="anchor" id="partners" aria-labelledby="partners-heading">
       <div class="container">
-        <span class="eyebrow">Contact Us</span>
-        <h1>Contact us</h1>
-        <p class="lead">Tell us about your project and we'll reply to set up a free consultation. You can also email us directly.</p>
+        <div class="section-head">
+          <span class="eyebrow">Partners</span>
+          <h2 id="partners-heading">Who we are</h2>
+        </div>
+        <div class="grid grid-2">
+{partner_cards}
+        </div>
       </div>
     </section>
 
-    <section style="padding-top:16px">
-      <div class="container contact-grid">
+    <section class="section-soft anchor" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Contact</span>
+          <h2 id="contact-heading">Get in touch</h2>
+          <p class="lead">Tell us about your project and we'll reply to set up a free consultation. You can also email us directly.</p>
+        </div>
+        <div class="contact-grid">
         <div class="card">
-          <h2>Send us a message</h2>
+          <h3>Send us a message</h3>
           <form class="contact-form" action="{FORM}" method="POST">
             <input type="hidden" name="_subject" value="New inquiry from larkdatasolutions.com">
             <div class="field-row">
@@ -402,9 +356,10 @@ contact = f'''    <section class="page-hero">
           </form>
         </div>
         <div class="card">
-          <h2>Email</h2>
+          <h3>Email</h3>
           <p>Write to us directly.</p>
           <a class="btn btn-ghost" href="mailto:{EMAIL}">{EMAIL}</a>
+        </div>
         </div>
       </div>
     </section>
@@ -430,10 +385,10 @@ contact = f'''    <section class="page-hero">
       }})();
     </script>'''
 
-write("contact-us/index.html", page("/contact-us/",
-    "Contact Us for a Free Consultation | Lark Data Solutions",
-    "Contact Lark Data Solutions to set up a free consultation about statistical methods, research design, or machine learning.",
-    contact, [{"@type": "ContactPage", "url": SITE + "/contact-us/", "about": {"@id": SITE + "/#organization"}}]))
+write("index.html", page("/",
+    "Lark Data Solutions | Data Science Consulting, Milwaukee",
+    "Data science and research consulting firm in Milwaukee, WI. We design studies, analyze real-world data, and build machine learning models.",
+    home, home_schema))
 
 # ---------- Policies ----------
 legal = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "policies_body.html"), encoding="utf-8").read()
@@ -466,15 +421,15 @@ write("404.html", page("/404.html", "Page Not Found | Lark Data Solutions",
         <p class="lead">It may have moved when we updated our site. Try one of these instead:</p>
         <div class="btn-row">
           <a class="btn" href="/">Home</a>
-          <a class="btn btn-ghost" href="/our-services/">Our Services</a>
-          <a class="btn btn-ghost" href="/contact-us/">Contact Us</a>
+          <a class="btn btn-ghost" href="/#services">Services</a>
+          <a class="btn btn-ghost" href="/#contact">Contact Us</a>
         </div>
       </div>
     </section>''', robots="noindex"))
 
 # ---------- robots + sitemap ----------
 open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
-urls = [("/", "1.0"), ("/our-services/", "0.9"), ("/contact-us/", "0.7"), ("/policies/", "0.3")]
+urls = [("/", "1.0"), ("/policies/", "0.3")]
 open(os.path.join(OUT, "sitemap.xml"), "w").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url>\n    <loc>{SITE}{u}</loc>\n    <lastmod>2026-10-13</lastmod>\n    <priority>{p}</priority>\n  </url>\n" for u, p in urls) +

@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=ebd5542b">
+  <link rel="stylesheet" href="assets/css/style.css?v=6c280018">
 
   <script type="application/ld+json">
 {
@@ -123,12 +123,141 @@
       "worksFor": {
         "@id": "https://www.larkdatasolutions.com/#organization"
       }
+    },
+    {
+      "@type": "Service",
+      "name": "Statistical Methods & Research Design",
+      "description": "We design studies and analyze data to answer specific questions, such as whether a program worked or which factors are associated with an outcome.",
+      "serviceType": "Statistical Methods & Research Design",
+      "provider": {
+        "@id": "https://www.larkdatasolutions.com/#organization"
+      },
+      "areaServed": "Worldwide",
+      "url": "https://www.larkdatasolutions.com/#statistics-research-design",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Statistical Methods & Research Design",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Study Design & Analysis Plans"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Causal Inference & Program Evaluation"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Longitudinal & Real-World Data Analysis"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Advanced Statistical Methods"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Surveys & Data Collection"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Regulatory Compliance"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Research Reporting & Publication"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Service",
+      "name": "Applied Machine Learning & AI",
+      "description": "We build and train machine learning models on your data for prediction, classification, and language and speech tasks.",
+      "serviceType": "Applied Machine Learning & AI",
+      "provider": {
+        "@id": "https://www.larkdatasolutions.com/#organization"
+      },
+      "areaServed": "Worldwide",
+      "url": "https://www.larkdatasolutions.com/#machine-learning-ai",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Applied Machine Learning & AI",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Machine Learning & Deep Learning"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Predictive Modeling"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Natural Language Processing & Speech Recognition"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Model Fine-Tuning & Evaluation"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Training Data Development"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "FSP Finder",
+      "url": "https://fspfinder.com",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web",
+      "description": "A speech recognition tool radio stations use to make broadcast-ready edits of songs.",
+      "publisher": {
+        "@id": "https://www.larkdatasolutions.com/#organization"
+      }
     }
   ]
 }
   </script>
 </head>
-<body>
+<body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="site-header">
@@ -139,9 +268,10 @@
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <nav class="nav" id="site-nav" aria-label="Main">
-        <a href="./" aria-current="page">Home</a>
-        <a href="our-services/">Services</a>
-        <a class="btn" href="contact-us/">Contact Us</a>
+        <a href="#top">Home</a>
+        <a href="#services">Services</a>
+        <a href="#partners">Partners</a>
+        <a class="btn" href="#contact">Contact Us</a>
       </nav>
     </div>
   </header>
@@ -150,12 +280,12 @@
     <section class="hero">
       <div class="container">
         <div>
-          <span class="eyebrow">Data Science &amp; Research Consulting &middot; Milwaukee</span>
-          <h1>Helping Your Data <span>Take Flight.</span></h1>
+          <h1 class="eyebrow">Data Science &amp; Research Consulting in Milwaukee</h1>
+          <p class="tagline">Helping Your Data <span>Take Flight.</span></p>
           <p class="lead">Lark Data Solutions is a data science and research consulting firm in Milwaukee, Wisconsin. We help organizations design studies, analyze real-world data, and build machine learning models.</p>
           <div class="btn-row">
-            <a class="btn" href="contact-us/">Contact Us</a>
-            <a class="btn btn-ghost" href="our-services/">Our Services</a>
+            <a class="btn" href="#contact">Contact Us</a>
+            <a class="btn btn-ghost" href="#services">Our Services</a>
           </div>
         </div>
         <div class="hero-art">
@@ -164,73 +294,167 @@
       </div>
     </section>
 
-    <section class="section-soft" id="what-we-do" aria-labelledby="help-heading">
+    <section class="section-soft anchor" id="services" aria-labelledby="services-heading">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Services &amp; Partners</span>
-          <h2 id="help-heading">What we do</h2>
+          <span class="eyebrow">Services</span>
+          <h2 id="services-heading">What we do</h2>
+          <p class="lead">Our work covers statistical methods and research design, and applied machine learning and AI. Projects often use both.</p>
         </div>
-        <div class="grid grid-2 lines">
-          <div class="line-col">
-            <a class="card" href="our-services/#statistics-research-design">
-              <div class="dot c-teal" aria-hidden="true"></div>
-              <h3>Statistical Methods &amp; Research Design</h3>
-              <p>Study design, causal inference, and analysis of real-world data.</p>
-              <span class="more">See services &rarr;</span>
-            </a>
-            <article class="partner" id="amanda-luff">
-              <img src="assets/img/amanda-luff-320.webp" width="96" height="96" alt="Portrait of Amanda Luff, PhD, MPH" loading="lazy">
-              <h3>Amanda Luff, PhD, MPH</h3>
-              <p class="role">Partner, Statistical Methods &amp; Research Design</p>
-              <p>Amanda is a quantitative researcher and data strategist with over a decade of experience analyzing real-world data. She excels at designing and leading complex research, transforming data into clear, evidence-based findings grounded in rigorous methodology and ethical practices.</p>
-            </article>
+        <div class="line-grid">
+          <article class="line-card" id="statistics-research-design" aria-labelledby="statistics-research-design-h">
+            <div class="dot c-teal" aria-hidden="true"></div>
+            <h3 id="statistics-research-design-h">Statistical Methods &amp; Research Design</h3>
+            <p>We design studies and analyze data to answer specific questions, such as whether a program worked or which factors are associated with an outcome.</p>
+            <ul class="checklist">
+              <li>Study Design &amp; Analysis Plans</li>
+              <li>Causal Inference &amp; Program Evaluation</li>
+              <li>Longitudinal &amp; Real-World Data Analysis</li>
+              <li>Advanced Statistical Methods</li>
+              <li>Surveys &amp; Data Collection</li>
+              <li>Regulatory Compliance</li>
+              <li>Research Reporting &amp; Publication</li>
+            </ul>
+          </article>
+          <article class="line-card" id="machine-learning-ai" aria-labelledby="machine-learning-ai-h">
+            <div class="dot c-orange" aria-hidden="true"></div>
+            <h3 id="machine-learning-ai-h">Applied Machine Learning &amp; AI</h3>
+            <p>We build and train machine learning models on your data for prediction, classification, and language and speech tasks.</p>
+            <ul class="checklist">
+              <li>Machine Learning &amp; Deep Learning</li>
+              <li>Predictive Modeling</li>
+              <li>Natural Language Processing &amp; Speech Recognition</li>
+              <li>Model Fine-Tuning &amp; Evaluation</li>
+              <li>Training Data Development</li>
+            </ul>
+          </article>
+        </div>
+        <article class="product-band" id="products" aria-labelledby="products-h">
+          <div class="product-label">
+            <div class="dot c-gold" aria-hidden="true"></div>
+            <h3 id="products-h">Products</h3>
           </div>
-          <div class="line-col">
-            <a class="card" href="our-services/#machine-learning-ai">
-              <div class="dot c-orange" aria-hidden="true"></div>
-              <h3>Applied Machine Learning &amp; AI</h3>
-              <p>Predictive modeling, natural language processing, and speech recognition.</p>
-              <span class="more">See services &rarr;</span>
-            </a>
-            <article class="partner" id="duncan-clark">
-              <img src="assets/img/duncan-clark-320.webp" width="96" height="96" alt="Portrait of Duncan Clark, PhD" loading="lazy">
-              <h3>Duncan Clark, PhD</h3>
-              <p class="role">Partner, Applied Machine Learning &amp; AI</p>
-              <p>Duncan is a data scientist and machine learning specialist with a background in advanced mathematics. He excels at developing custom machine learning models for prediction, classification, natural language processing, and speech recognition.</p>
-            </article>
+          <div class="product-body">
+            <h4>FSP Finder</h4>
+            <p>A speech recognition tool radio stations use to make broadcast-ready edits of songs.</p>
           </div>
+          <a class="btn btn-ghost" href="https://fspfinder.com" rel="noopener" target="_blank">Visit fspfinder.com</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="anchor" id="partners" aria-labelledby="partners-heading">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Partners</span>
+          <h2 id="partners-heading">Who we are</h2>
+        </div>
+        <div class="grid grid-2">
+          <article class="partner" id="amanda-luff">
+            <img src="assets/img/amanda-luff-320.webp" width="96" height="96" alt="Portrait of Amanda Luff, PhD, MPH" loading="lazy">
+            <h3>Amanda Luff, PhD, MPH</h3>
+            <p class="role">Partner, Statistical Methods &amp; Research Design</p>
+            <p>Amanda is a quantitative researcher and data strategist with over a decade of experience analyzing real-world data. She excels at designing and leading complex research, transforming data into clear, evidence-based findings grounded in rigorous methodology and ethical practices.</p>
+          </article>
+          <article class="partner" id="duncan-clark">
+            <img src="assets/img/duncan-clark-320.webp" width="96" height="96" alt="Portrait of Duncan Clark, PhD" loading="lazy">
+            <h3>Duncan Clark, PhD</h3>
+            <p class="role">Partner, Applied Machine Learning &amp; AI</p>
+            <p>Duncan is a data scientist and machine learning specialist with a background in advanced mathematics. He excels at developing custom machine learning models for prediction, classification, natural language processing, and speech recognition.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="section-soft anchor" id="contact" aria-labelledby="contact-heading">
       <div class="container">
-        <div class="cta">
-          <div>
-            <h2>Have a project in mind?</h2>
-            <p>Tell us what you're working on. The first consultation is free.</p>
-          </div>
-          <a class="btn" href="contact-us/">Contact Us</a>
+        <div class="section-head">
+          <span class="eyebrow">Contact</span>
+          <h2 id="contact-heading">Get in touch</h2>
+          <p class="lead">Tell us about your project and we'll reply to set up a free consultation. You can also email us directly.</p>
+        </div>
+        <div class="contact-grid">
+        <div class="card">
+          <h3>Send us a message</h3>
+          <form class="contact-form" action="https://formspree.io/f/mbgdzqze" method="POST">
+            <input type="hidden" name="_subject" value="New inquiry from larkdatasolutions.com">
+            <div class="field-row">
+              <label>Name <span class="req" aria-hidden="true">*</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>Email <span class="req" aria-hidden="true">*</span>
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Organization
+                <input type="text" name="organization" autocomplete="organization">
+              </label>
+              <label>Role or title
+                <input type="text" name="role" autocomplete="organization-title">
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Phone <span class="opt">(optional)</span>
+                <input type="tel" name="phone" autocomplete="tel">
+              </label>
+              <label>Area of interest
+                <select name="area">
+                  <option value="">Select one</option>
+                  <option>Statistical Methods &amp; Research Design</option>
+                  <option>Applied Machine Learning &amp; AI</option>
+                  <option>Both</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
+            </div>
+            <label>About your project <span class="req" aria-hidden="true">*</span>
+              <textarea name="message" rows="6" required></textarea>
+            </label>
+            <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit">Send message</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Email</h3>
+          <p>Write to us directly.</p>
+          <a class="btn btn-ghost" href="mailto:contact@larkdatasolutions.com">contact@larkdatasolutions.com</a>
+        </div>
         </div>
       </div>
     </section>
+
+    <script>
+      (function () {
+        var f = document.querySelector('.contact-form'), s = f.querySelector('.form-status'), b = f.querySelector('button');
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          b.disabled = true; s.className = 'form-status'; s.textContent = 'Sending...';
+          fetch(f.action, { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+            .then(function (r) {
+              if (!r.ok) throw new Error();
+              f.reset(); s.className = 'form-status ok';
+              s.textContent = 'Thanks. We received your message and will reply by email.';
+            })
+            .catch(function () {
+              s.className = 'form-status err';
+              s.textContent = 'Your message could not be sent. Please email us at contact@larkdatasolutions.com.';
+            })
+            .finally(function () { b.disabled = false; });
+        });
+      })();
+    </script>
   </main>
 
   <footer class="site-footer">
     <div class="container">
       <div>
-        <h2>Lark Data Solutions</h2>
+        <p class="footer-head">Lark Data Solutions</p>
         <p>Statistics, research design, and machine learning consulting in Milwaukee, Wisconsin.</p>
       </div>
       <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="our-services/">Our Services</a></li>
-          <li><a href="contact-us/">Contact Us</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Get in touch</h2>
+        <p class="footer-head">Get in touch</p>
         <ul>
           <li><a href="mailto:contact@larkdatasolutions.com">contact@larkdatasolutions.com</a></li>
           <li>Milwaukee, Wisconsin</li>
@@ -250,6 +474,13 @@
         var open = n.classList.toggle('open');
         b.setAttribute('aria-expanded', open);
         b.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      n.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+          n.classList.remove('open');
+          b.setAttribute('aria-expanded', false);
+          b.setAttribute('aria-label', 'Open menu');
+        }
       });
     })();
   </script>

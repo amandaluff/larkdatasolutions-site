@@ -272,3 +272,21 @@ a.card:hover { border-color: var(--teal-bright); box-shadow: 0 12px 32px -16px r
 .product-band h3 { margin: 0 0 4px; }
 .product-band .product-body p { margin: 0; color: var(--muted); }
 @media (max-width: 760px) { .product-band { grid-template-columns: 1fr; gap: 16px; padding: 24px 22px; } .product-band .btn { justify-self: start; } }
+
+/* Single-page layout */
+.anchor { scroll-margin-top: 72px; }
+.line-card h3 { font-size: clamp(1.4rem, 2.2vw, 1.75rem); letter-spacing: -0.02em; }
+.product-label h3 { margin: 0; font-size: 1.25rem; }
+.product-band h4 { margin: 0 0 4px; font-size: 1.1rem; color: var(--ink); }
+#partners .grid { align-items: stretch; }
+#contact .contact-grid .card { background: #fff; }
+.line-card > p { margin-bottom: 24px; }
+
+/* Keyword H1 styled as the small label; tagline keeps the large heading look */
+.hero h1.eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; line-height: 1.5; margin: 0 0 14px; }
+.tagline { font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 800; color: var(--ink); line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 0.6em; }
+.hero .tagline span { background: linear-gradient(90deg, var(--teal) 0%, var(--teal-bright) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.contact-grid .card h3 { font-size: 1.4rem; }
+.footer-head { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; }
+.site-footer .container { grid-template-columns: 2fr 1fr; }
+@media (max-width: 760px) { .site-footer .container { grid-template-columns: 1fr; } }
