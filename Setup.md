@@ -41,7 +41,7 @@ How larkdatasolutions.com is hosted and connected, as of October 13, 2026.
 
 ## Analytics (Google Analytics 4)
 
-- Measurement ID `G-YW9BVNQKPN` (`GA_ID` in `src/build.py`), on every page.
+- Measurement ID `G-YW9BVNQKPN` (`GA_ID` in `src/build.py`), on every page. The tag script loads after the page finishes loading (for phone speed), so visits that leave within the first second or two may not be counted.
 - A `generate_lead` event fires only after Formspree confirms a submission. Clicks on "Contact Us" are not counted.
 - The privacy policy (sections 3.1 and 3.5) describes Google Analytics and its cookies, with opt-out links.
 

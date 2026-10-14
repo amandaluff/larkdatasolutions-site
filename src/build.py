@@ -93,20 +93,25 @@ def page(path, title, desc, body, schema=None, robots="index, follow"):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+  <!-- Google tag (gtag.js). The script loads after the page finishes loading so it
+       doesn't slow the first paint on phones; calls made before then queue in dataLayer. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
     gtag('js', new Date());
     gtag('config', '{GA_ID}');
+    window.addEventListener('load', function () {{
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id={GA_ID}';
+      document.head.appendChild(s);
+    }});
   </script>
 
   <title>{title}</title>
   <meta name="description" content="{desc}">
   <meta name="robots" content="{robots}">
-  <link rel="canonical" href="{url}">
-  <meta name="theme-color" content="#0f1b2d">
+{"" if robots.startswith("noindex") else f'  <link rel="canonical" href="{url}">' + chr(10)}  <meta name="theme-color" content="#0f1b2d">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Lark Data Solutions">
@@ -213,6 +218,8 @@ def write(rel, html):
 
 
 # ---------- Redirects for pages merged into the home page ----------
+# Instant meta refresh plus a canonical to the home page. No noindex: Google advises
+# against combining noindex with a canonical, and treats a 0-second refresh as a redirect.
 def redirect(rel, anchor):
     write(rel, f'''<!doctype html>
 <html lang="en">
@@ -220,7 +227,6 @@ def redirect(rel, anchor):
   <meta charset="utf-8">
   <title>Lark Data Solutions</title>
   <link rel="canonical" href="{SITE}/">
-  <meta name="robots" content="noindex, follow">
   <meta http-equiv="refresh" content="0; url=../#{anchor}">
 </head>
 <body><p>This page has moved to <a href="/#{anchor}">the home page</a>.</p></body>
@@ -416,7 +422,6 @@ write("home/index.html", f'''<!doctype html>
   <meta charset="utf-8">
   <title>Lark Data Solutions</title>
   <link rel="canonical" href="{SITE}/">
-  <meta name="robots" content="noindex, follow">
   <meta http-equiv="refresh" content="0; url=../">
 </head>
 <body><p>This page has moved to <a href="/">the home page</a>.</p></body>
