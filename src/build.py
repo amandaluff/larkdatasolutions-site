@@ -1,4 +1,4 @@
-import json, sys, os
+import json, sys, os, re
 
 OUT = sys.argv[1]
 SITE = "https://www.larkdatasolutions.com"
@@ -192,6 +192,11 @@ def cta(heading="Ready to put your data to work?", text="Tell us about your proj
 
 
 def write(rel, html):
+    # Root-relative links ("/about-us/") break when the site is served from a
+    # subfolder (the github.io preview), so make them relative to this page.
+    prefix = "../" * rel.count("/")
+    html = re.sub(r'(href|src)="/(?!/)([^"]*)"',
+                  lambda m: f'{m.group(1)}="{prefix + m.group(2) or "./"}"', html)
     p = os.path.join(OUT, rel)
     os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, "w", encoding="utf-8").write(html)
@@ -393,7 +398,7 @@ write("home/index.html", f'''<!doctype html>
   <title>Lark Data Solutions</title>
   <link rel="canonical" href="{SITE}/">
   <meta name="robots" content="noindex, follow">
-  <meta http-equiv="refresh" content="0; url=/">
+  <meta http-equiv="refresh" content="0; url=../">
 </head>
 <body><p>This page has moved to <a href="/">the home page</a>.</p></body>
 </html>
