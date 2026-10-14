@@ -2,6 +2,11 @@
 
 Lark Data Solutions is a data science and research consulting business owned by Lark Services LLC. It is **completely unaffiliated with Lark Doula**. Never use, reference, or copy anything from the Lark Doula folder or its websites here.
 
+Also read:
+- `Private.md` (local only; the repo is public, so employment details live there): topics and names that must never appear on the site.
+- `Setup.md`: hosting, DNS, email, contact form, analytics, search, and open tasks.
+- `Brand.md`: colors, type, and the logo history and requirements.
+
 ## Business naming
 
 - The business name is **Lark Data Solutions** (no "LLC"). The LLC is **Lark Services LLC**. Don't use "DBA" or "trade name" wording.
@@ -11,12 +16,15 @@ Lark Data Solutions is a data science and research consulting business owned by 
 ## Copy rules
 
 - **Agree on wording before editing.** Propose copy changes in chat and get approval before touching the code. Make the change in one pass, then show it.
-- **No current employment.** Never name the partners' current employers, job titles (e.g. "senior data scientist"), or the work they do there. Duncan must not appear to do competitive work: no fraud detection, identity verification, or risk modeling anywhere.
+- **No employers.** Never name either partner's employers, use their job titles there (e.g. "senior data scientist"), or frame anything as their current job ("today," "at a large health system"). Read `Private.md` (local only, not committed) for the specifics, including topics that must never appear on the site.
+- **Amanda's research** is academic, so her published work may be referenced as research products. Don't pitch academic track record (trial counts, publications) at non-academic clients in bios.
 - **Amanda** is a "quantitative researcher," title "Partner, Statistical Methods & Research Design." Her health research is her track record, not the limit of the business. Don't call her an epidemiologist except when naming her degree.
 - **Duncan** is a "data scientist" (a field, not a job title), title "Partner, Applied Machine Learning & AI." Not "mathematician," not "machine learning engineer" (a different field).
 - **Partners, not the whole firm.** Present Amanda and Duncan as the partners who lead the firm. Never write copy that implies they are the only people at Lark (e.g. "Lark Data Solutions is Amanda and Duncan").
 - **Structure:** the site is one scrolling home page (intro, Services, Partners, Contact) plus the Terms page. Two service lines, each led by a partner: Statistical Methods & Research Design (Amanda) and Applied Machine Learning & AI (Duncan), shown as side-by-side cards with a Products band (FSP Finder) below. `/our-services/`, `/about-us/`, and `/contact-us/` redirect to their sections. Don't frame the lines as separate programs clients must choose between. Add a separate page only when there is enough real content to justify it.
-- **FSP Finder** is a Lark product. Mention it briefly as a product, never as a side project, and never mention the bootcamp.
+- **FSP Finder** (fspfinder.com) is a Lark product: a speech recognition tool radio stations use to make broadcast-ready edits of songs. It appears as a Products band on the home page. Never present it as a side project, never mention the bootcamp, and don't make it Duncan's whole identity.
+- **Lark is a data science company, not ML engineering.** Don't describe the work as building software, deploying apps, or engineering infrastructure.
+- **No LinkedIn links** on the site.
 - Keep the tagline "Helping Your Data Take Flight." It plays on the Lark name.
 - **Bios** follow the format of a normal small-consultancy site: name, title, two or three plain sentences on what the person does for clients. No skills list (offerings live on the Services page) and no LinkedIn links. They highlight what the person brings to clients. No résumé details (counts of trials, staff, sites), no academic track record pitched at non-academic clients, and no other employment.
 
@@ -40,5 +48,21 @@ If unsure, write less. A short plain sentence is better than a clever one.
   `python3 src/build.py docs`
 - The build prints a WARNING if a page title is over 60 characters or a description is outside 120-160 characters. Fix any warning before publishing. Every image needs non-empty alt text describing it (Bing flags empty alt text). For decorative images, describe them and add `aria-hidden="true"` so screen readers skip them. The build warns about any image without alt text.
 - Preview locally: `python3 -m http.server 8420 --directory docs`, then open http://localhost:8420
-- The current brand mark (`docs/assets/img/mark.svg`, favicons, `og-image.png`) is a placeholder until the new logo is finished.
+- The current brand mark (`docs/assets/img/mark.svg`, favicons, `og-image.png`) is a placeholder until the new logo is finished. See `Brand.md`.
+- Google Analytics (`GA_ID`) and the Formspree form (`FORM`) are set at the top of `src/build.py`. If either changes, update the privacy policy in `src/policies_body.html` to match. Details are in `Setup.md`.
+- The `brand/` folder holds logo concept files. It is not published (only `docs/` is served).
+- Never put Markdown or notes inside `docs/`; everything there is public on the website.
 - Never commit or push without the owner's clear yes.
+
+## Approved bios (current)
+
+These were approved by Amanda. Reuse them as written; don't rewrite them without approval.
+
+- **Amanda Luff, PhD, MPH**, Partner, Statistical Methods & Research Design: "Amanda is a quantitative researcher and data strategist with over a decade of experience analyzing real-world data. She excels at designing and leading complex research, transforming data into clear, evidence-based findings grounded in rigorous methodology and ethical practices."
+- **Duncan Clark, PhD**, Partner, Applied Machine Learning & AI: "Duncan is a data scientist and machine learning specialist with a background in advanced mathematics. He excels at developing custom machine learning models for prediction, classification, natural language processing, and speech recognition."
+
+## Working preferences
+
+- Show changes in the local preview before pushing, and push only on a clear yes.
+- When something looks off on desktop or phones, check both widths (1440px and 375px) before showing it.
+- Don't keep guessing at copy Amanda has rejected more than once. Ask for her wording, a model to match, or start from her original text.
